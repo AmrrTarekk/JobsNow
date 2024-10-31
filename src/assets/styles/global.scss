@@ -1,0 +1,62 @@
+@import "variables";
+@import "fonts";
+
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  body {
+    * {
+      &:lang(ar) {
+        font-family: "Roboto", sans-serif !important;
+      }
+    }
+  }
+}
+
+*,
+html {
+  scroll-behavior: smooth !important;
+}
+
+body {
+  overflow-x: hidden;
+  overflow-y: auto;
+  width: 100%;
+  font-family: "Roboto" !important;
+  position: relative;
+  &::-webkit-scrollbar {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    background-color: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: gray;
+    border-radius: 0px;
+  }
+  &:lang(ar) {
+    font-family: "Roboto", sans-serif !important;
+    > * {
+      font-family: "Roboto", sans-serif !important;
+      direction: rtl !important;
+      text-align: right !important;
+    }
+  }
+}
+
+button {
+  font-family: "Roboto", sans-serif !important;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}

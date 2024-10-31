@@ -1,0 +1,27 @@
+@import "../../../assets/styles/variables.scss";
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 35px;
+  width: 100%;
+  background-color: $primary-white;
+  &_title {
+    font-weight: 700;
+    font-size: 24px;
+  }
+  &_tabs {
+    display: flex;
+    gap: 20px;
+    p {
+      font-weight: 400;
+      font-size: 18px;
+      text-transform: capitalize;
+      color: #000000;
+      line-height: 24.41px;
+      &.activeTab {
+        border-bottom: 1px solid #000;
+      }
+    }
+  }
+}
