@@ -4,4 +4,14 @@
   gap: 50px;
   height: 100%;
   margin-bottom: 5%;
+  h1 {
+    padding-inline: 4%;
+    font-size: 48px;
+  }
+  &_jobs {
+    padding-inline: 3%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
 }

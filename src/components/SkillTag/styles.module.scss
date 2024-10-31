@@ -1,0 +1,13 @@
+@import "../../assets/styles/variables.scss";
+
+.skillTag {
+  padding: 5px 12px;
+  background-color: $dark-gray;
+  color: $primary-black;
+  border-radius: 5px;
+  span {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 24.47px;
+  }
+}

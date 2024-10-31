@@ -6,6 +6,7 @@ import {
 import { lazy, Suspense } from "react";
 import MainLayout from "./layout/MainLayout";
 import ErrorPage from "./pages/NotFound";
+import LoadingComp from "./components/LoadingComponent";
 
 const Home = lazy(() => import("./pages/Home"));
 const ViewJobDetails = lazy(() => import("./pages/ViewJobDetails"));
@@ -25,7 +26,7 @@ function App() {
         {
           path: `/jobs`,
           element: (
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<LoadingComp />}>
               <Home />
             </Suspense>
           ),
@@ -33,7 +34,7 @@ function App() {
         {
           path: `/jobs/search`,
           element: (
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<LoadingComp />}>
               <SearchJobs />
             </Suspense>
           ),
@@ -41,7 +42,7 @@ function App() {
         {
           path: `/jobs/job/:id`,
           element: (
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<LoadingComp />}>
               <ViewJobDetails />
             </Suspense>
           ),
