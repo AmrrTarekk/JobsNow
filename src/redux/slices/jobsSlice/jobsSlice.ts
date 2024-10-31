@@ -3,33 +3,20 @@ import {
   createSlice,
   createEntityAdapter,
   PayloadAction,
-  EntityId,
   ThunkDispatch,
   UnknownAction,
 } from "@reduxjs/toolkit";
 import { JobAxios } from "../../../utilitiestest/axiosDefault";
 import { RootState } from "../../store";
-
-type JobEntity = {
-  id: EntityId;
-  title: string;
-  detailedSkill: { id: EntityId; name: string }[];
-};
+import {
+  FinalJobsDataType,
+  JobEntity,
+  JobType,
+  NormalizedJobType,
+  StateType,
+} from "./type";
 
 const jobsAdapter = createEntityAdapter<JobEntity>();
-
-type StateType = {
-  data: {
-    jobs: ReturnType<typeof jobsAdapter.getInitialState>;
-    meta: {
-      next: number;
-      count: number;
-    };
-  };
-  loading: boolean;
-  paginationLoading: boolean;
-  error: string | null;
-};
 
 const initialState: StateType = {
   data: {

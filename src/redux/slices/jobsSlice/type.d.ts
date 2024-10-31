@@ -1,10 +1,12 @@
-type NormalizedJobType = {
+import { EntityId } from "@reduxjs/toolkit";
+
+export type NormalizedJobType = {
   id: string;
   title: string;
   skillIds: string[];
 };
 
-type JobType = {
+export type JobType = {
   id: string;
   type: string;
   attributes: {
@@ -17,7 +19,7 @@ type JobType = {
   };
 };
 
-type FinalJobsDataType = {
+export type FinalJobsDataType = {
   jobs: {
     id: string;
     title: string;
@@ -32,7 +34,13 @@ type FinalJobsDataType = {
   };
 };
 
-type StateType = {
+export type JobEntity = {
+  id: EntityId;
+  title: string;
+  detailedSkill: { id: EntityId; name: string }[];
+};
+
+export type StateType = {
   data: {
     jobs: ReturnType<typeof jobsAdapter.getInitialState>;
     meta: {
@@ -41,9 +49,6 @@ type StateType = {
     };
   };
   loading: boolean;
-  error: null | string;
-};
-
-type SkillsType = {
-  id: string;
+  paginationLoading: boolean;
+  error: string | null;
 };
