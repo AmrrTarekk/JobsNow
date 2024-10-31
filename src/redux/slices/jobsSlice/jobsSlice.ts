@@ -1,17 +1,17 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import {
+  createAsyncThunk,
+  createSlice,
+  createEntityAdapter,
+  PayloadAction,
+} from "@reduxjs/toolkit";
 import { JobAxios } from "../../../utilitiestest/axiosDefault";
+import { RootState } from "../../store";
 
-type NormalizedDataType = {
-  jobs: NormalizedJobType[];
-  meta: {
-    next: number;
-    count: number;
-  };
-};
+const jobsAdapter = createEntityAdapter();
 
 const initialState: StateType = {
   data: {
-    jobs: [],
+    jobs: jobsAdapter.getInitialState(),
     meta: {
       next: 0,
       count: 0,
@@ -23,35 +23,22 @@ const initialState: StateType = {
 
 export const fetchJobs = createAsyncThunk(
   "jobs/fetchJobs",
-  async (_, { dispatch }) => {
+  async (next: number, { dispatch }) => {
     const response: any = await JobAxios({
       method: "GET",
-      url: "/jobs",
+      url: `/jobs?cursor=${next}&limit=12`,
     });
 
     const fetchedJobsData: JobType[] = response.data.data.jobs;
     const meta = response.data.data.meta;
 
-    const jobsData: NormalizedDataType = {
-      jobs: [],
-      meta,
-    };
+    const jobsData: NormalizedJobType[] = fetchedJobsData.map((job) => ({
+      id: job.id,
+      title: job.attributes.title,
+      skillIds: job.relationships.skills.map((skill) => skill.id),
+    }));
 
-    fetchedJobsData.forEach((job) => {
-      const {
-        id,
-        attributes: { title },
-        relationships: { skills },
-      } = job;
-
-      jobsData.jobs.push({
-        id,
-        title,
-        skillIds: skills.map((skill) => skill.id),
-      });
-    });
-
-    const skillIdsSet = new Set(jobsData.jobs.flatMap((job) => job.skillIds));
+    const skillIdsSet = new Set(jobsData.flatMap((job) => job.skillIds));
 
     const skillsResponses = await Promise.all(
       Array.from(skillIdsSet).map((id) =>
@@ -65,9 +52,9 @@ export const fetchJobs = createAsyncThunk(
       return acc;
     }, {});
 
+    // Normalize the jobs data by adding detailed skills info
     const finalJobsData = {
-      ...jobsData,
-      jobs: jobsData.jobs.map(({ id, title, skillIds }) => ({
+      jobs: jobsData.map(({ id, title, skillIds }) => ({
         id,
         title,
         detailedSkill: skillIds.map((skillId) => ({
@@ -75,6 +62,7 @@ export const fetchJobs = createAsyncThunk(
           name: skillsLookup[skillId].attributes.name,
         })),
       })),
+      meta,
     };
 
     return { finalJobsData };
@@ -108,7 +96,11 @@ const jobsSlice = createSlice({
           state,
           action: PayloadAction<{ finalJobsData: FinalJobsDataType }>
         ) => {
-          state.data = action.payload.finalJobsData;
+          jobsAdapter.setAll(
+            state.data.jobs,
+            action.payload.finalJobsData.jobs
+          );
+          state.data.meta = action.payload.finalJobsData.meta;
           state.loading = false;
         }
       )
@@ -118,5 +110,8 @@ const jobsSlice = createSlice({
       });
   },
 });
+
+export const { selectAll: selectAllJobs, selectById: selectJobById } =
+  jobsAdapter.getSelectors((state: RootState) => state.jobs.data.jobs);
 
 export const jobsReducer = jobsSlice.reducer;

@@ -2,16 +2,20 @@ import styles from "./styles.module.scss";
 import HelmetContainer from "../../HOC/Helmet";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hook/reduxHook";
-import { fetchJobs } from "../../redux/slices/jobsSlice/jobsSlice";
+import {
+  fetchJobs,
+  selectAllJobs,
+} from "../../redux/slices/jobsSlice/jobsSlice";
 
 function Home() {
   const dispatch = useAppDispatch();
-  const jobs = useAppSelector((state) => state.jobs);
+  const { jobs: jobsState } = useAppSelector((state) => state);
+  const jobs = useAppSelector((state) => selectAllJobs(state));
 
-  console.log(jobs, "jobs");
+  console.log(jobsState, "jobs");
 
   useEffect(() => {
-    dispatch(fetchJobs());
+    dispatch(fetchJobs(0));
   }, [dispatch]);
 
   return (

@@ -33,22 +33,16 @@ type FinalJobsDataType = {
 };
 
 type StateType = {
-  data: FinalJobsDataType;
+  data: {
+    jobs: ReturnType<typeof jobsAdapter.getInitialState>;
+    meta: {
+      next: number;
+      count: number;
+    };
+  };
   loading: boolean;
   error: null | string;
 };
-
-// const initialState: StateType = {
-//   data: {
-//     jobs: [],
-//     meta: {
-//       next: 0,
-//       count: 0,
-//     },
-//   },
-//   loading: false,
-//   error: null,
-// };
 
 type SkillsType = {
   id: string;
