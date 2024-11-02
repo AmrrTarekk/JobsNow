@@ -39,16 +39,3 @@ export type JobEntity = {
   title: string;
   detailedSkill: { id: EntityId; name: string }[];
 };
-
-export type StateType = {
-  data: {
-    jobs: ReturnType<typeof jobsAdapter.getInitialState>;
-    meta: {
-      next: number;
-      count: number;
-    };
-  };
-  loading: boolean;
-  paginationLoading: boolean;
-  error: string | null;
-};

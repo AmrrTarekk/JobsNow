@@ -13,7 +13,9 @@ function Navbar() {
 
   return (
     <div className={styles.navbar}>
-      <p className={styles.navbar_title}>JobsNow</p>
+      <Link to="/">
+        <p className={styles.navbar_title}>JobsNow</p>
+      </Link>
       <div className={styles.navbar_tabs}>
         {Tabs.map((tab, index) => (
           <Link to={tab.link} key={index}>

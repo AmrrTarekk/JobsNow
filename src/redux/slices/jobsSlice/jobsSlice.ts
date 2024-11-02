@@ -13,9 +13,20 @@ import {
   JobEntity,
   JobType,
   NormalizedJobType,
-  StateType,
 } from "./type";
 
+type StateType = {
+  data: {
+    jobs: ReturnType<typeof jobsAdapter.getInitialState>;
+    meta: {
+      next: number;
+      count: number;
+    };
+  };
+  loading: boolean;
+  paginationLoading: boolean;
+  error: string | null;
+};
 const jobsAdapter = createEntityAdapter<JobEntity>();
 
 const initialState: StateType = {
@@ -54,14 +65,13 @@ const fetchJobResponse = async (
   const skillsResponses = await Promise.all(
     Array.from(skillIdsSet).map((id) => dispatch(fetchSkillById(id as string)))
   );
-
   const detailedSkills = skillsResponses.map(({ payload }) => payload);
   const skillsLookup = detailedSkills.reduce((acc, skill) => {
     acc[skill.id] = skill;
     return acc;
   }, {});
 
-  // normalize the jobsData
+  // final normalization of the jobsData
   const finalJobsData = {
     jobs: jobsData.map(({ id, title, skillIds }) => ({
       id,
@@ -88,7 +98,7 @@ export const fetchPagination = createAsyncThunk(
 );
 
 const fetchSkillById = createAsyncThunk(
-  "skills/fetchSkillById",
+  "jobs/fetchSkillById",
   async (skillId: string) => {
     const response: any = await JobAxios({
       method: "GET",

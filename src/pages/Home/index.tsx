@@ -25,8 +25,6 @@ function Home() {
     dispatch(fetchJobs(0));
   }, [dispatch]);
 
-  console.log(data);
-
   useEffect(() => {
     if (cursor) {
       dispatch(fetchPagination(cursor));

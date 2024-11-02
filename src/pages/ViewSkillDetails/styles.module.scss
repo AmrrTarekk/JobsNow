@@ -1,5 +1,5 @@
 @import "../../assets/styles/variables.scss";
-.viewJob {
+.viewSkill {
   display: flex;
   flex-direction: column;
   gap: 50px;
@@ -12,7 +12,7 @@
       font-size: 24px;
     }
   }
-  .viewJobLayout {
+  .viewSkillLayout {
     padding-inline: 3%;
     display: grid;
     grid-template-columns: 1fr 0.5fr;
@@ -22,8 +22,7 @@
       flex-direction: column-reverse;
       gap: 20px;
     }
-    &_relatedSkills {
-      height: fit-content;
+    &_relatedJobs {
       background-color: $primary-white;
       padding: 30px 40px;
       display: flex;
@@ -37,13 +36,13 @@
           font-size: 18px;
         }
       }
-      .skills {
+      .jobs {
         display: flex;
         flex-direction: column;
         gap: 28px;
       }
     }
-    &_relatedJobs {
+    &_relatedSkills {
       height: fit-content;
       background-color: #d9d9d9;
       padding: 30px 40px;
@@ -58,7 +57,7 @@
           font-size: 18px;
         }
       }
-      .jobs {
+      .skills {
         display: flex;
         flex-direction: column;
         gap: 15px;
@@ -82,7 +81,7 @@
   }
 }
 
-.skillCard {
+.jobCard {
   background-color: #f0f0f0;
   border-radius: 5px;
   padding: 20px 30px;
