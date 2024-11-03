@@ -12,7 +12,7 @@ import {
   SkillDetailEntityType,
   SkillResponseType,
 } from "./type";
-import { JobAxios } from "../../../utilitiestest/axiosDefault";
+import { JobAxios } from "../../../utilities/axiosDefault";
 import { RootState } from "../../store";
 
 type StateType = {

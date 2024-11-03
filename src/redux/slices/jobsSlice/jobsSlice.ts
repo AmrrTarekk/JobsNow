@@ -6,7 +6,7 @@ import {
   ThunkDispatch,
   UnknownAction,
 } from "@reduxjs/toolkit";
-import { JobAxios } from "../../../utilitiestest/axiosDefault";
+import { JobAxios } from "../../../utilities/axiosDefault";
 import { RootState } from "../../store";
 import {
   FinalJobsDataType,
