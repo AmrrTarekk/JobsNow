@@ -72,7 +72,11 @@ function Search({ handleSearch, searchInput }: Props) {
   return (
     <div className={`${styles.searchBox}`}>
       <div
-        className={` ${searchFocus && styles.searchBoxActive}`}
+        className={` ${
+          searchFocus &&
+          (!!searchHistory.length || !!searchedJobs.length) &&
+          styles.searchBoxActive
+        }`}
         onClick={(e) => e.stopPropagation()}
       >
         <div className={styles.searchInput}>
@@ -86,7 +90,7 @@ function Search({ handleSearch, searchInput }: Props) {
           <SearchIcon className={styles.searchIcon} />
         </div>
       </div>
-      {searchFocus && (
+      {searchFocus && (!!searchHistory.length || !!searchedJobs.length) && (
         <div className={styles.searchMenu}>
           {loading ? (
             <div className={styles.loading}>

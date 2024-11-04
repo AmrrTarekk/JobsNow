@@ -21,7 +21,6 @@ axiosDefault.interceptors.response.use(
   },
   function (error) {
     // 4xx
-    console.log(error, "qweqweqwe qwe qwe qwe");
     const getError = new ErrorResponse().getError(error);
     return Promise.reject(getError);
   }
