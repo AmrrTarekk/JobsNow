@@ -57,7 +57,7 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    max-height: 250px;
+    max-height: 300px;
     overflow-y: auto;
     overscroll-behavior: contain;
 
@@ -80,11 +80,16 @@
     }
     .searchMenuRow {
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      gap: 10px;
       width: 100%;
-      padding: 8px 10px;
       border-radius: 5px;
+      padding: 8px 10px;
+      & > div {
+        gap: 10px;
+        display: flex;
+        align-items: center;
+      }
       &:hover {
         background-color: #d9d9d9;
       }

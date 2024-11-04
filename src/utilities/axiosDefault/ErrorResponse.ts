@@ -14,7 +14,7 @@ export class ErrorResponse {
 
     if (error.response) {
       this.code = error.response.status;
-      this.message = error.response.data.details;
+      this.message = error.response.data.error.message;
 
       this.data = error.response.data?.data || {};
     } else if (error.request) {

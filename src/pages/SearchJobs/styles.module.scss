@@ -23,6 +23,7 @@
       gap: 20px;
     }
     &_jobs {
+      height: fit-content;
       padding-inline: 3%;
       display: grid;
       grid-template-columns: repeat(2, 1fr);

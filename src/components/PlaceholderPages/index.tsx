@@ -1,5 +1,5 @@
 import LoadingComp from "../LoadingComponent";
-
+import styles from "./styles.module.scss";
 type Props = {
   loading: boolean;
   error: string | null;
@@ -11,7 +11,7 @@ function PlaceholderPages({ loading, error, children }: Props) {
     <div>
       {loading && <LoadingComp />}
 
-      {!loading && error && <div>{error}</div>}
+      {!loading && error && <div className={styles.error}>{error}</div>}
 
       {!loading && !error && <> {children}</>}
     </div>

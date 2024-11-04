@@ -5,6 +5,8 @@ import { useAppSelector } from "../../redux/hook/reduxHook";
 import { selectAllSearchedJobs } from "../../redux/slices/searchJobsSlice/searchJobsSlice";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { Link } from "react-router-dom";
+import CloseIcon from "@mui/icons-material/Close";
+
 type Props = {
   searchInput: string;
   handleSearch: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -47,6 +49,18 @@ function Search({ handleSearch, searchInput }: Props) {
     }
   };
 
+  const handleDeleteSearchHistory = (jobId: string) => {
+    localStorage?.setItem(
+      "searchHistory",
+      JSON.stringify([
+        ...searchHistory.filter((item: searchHistory) => item.id !== jobId),
+      ])
+    );
+    setSearchHistory((prev) =>
+      prev.filter((item: searchHistory) => item.id !== jobId)
+    );
+  };
+
   useEffect(() => {
     const focusListener = () => {
       setSearchFocus(false);
@@ -78,7 +92,7 @@ function Search({ handleSearch, searchInput }: Props) {
             <div className={styles.loading}>
               <div></div>
             </div>
-          ) : (
+          ) : searchedJobs.length ? (
             searchedJobs.map((job) => (
               <Link
                 key={job.id}
@@ -88,11 +102,40 @@ function Search({ handleSearch, searchInput }: Props) {
                 }
               >
                 <div className={styles.searchMenuRow}>
-                  <AccessTimeIcon />
-                  <p>{job.title}</p>
+                  <div>
+                    <AccessTimeIcon />
+                    <p>{job.title}</p>
+                  </div>
                 </div>
               </Link>
             ))
+          ) : (
+            <div>
+              <h4>Search History:</h4>
+              {searchHistory.map((job) => (
+                <Link
+                  key={job.id}
+                  to={`/jobs/job/${job.id}`}
+                  onClick={() =>
+                    handleSearchHistory({ id: `${job.id}`, title: job.title })
+                  }
+                >
+                  <div className={styles.searchMenuRow}>
+                    <div>
+                      <AccessTimeIcon />
+                      <p>{job.title}</p>
+                    </div>
+                    <CloseIcon
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        e.preventDefault();
+                        handleDeleteSearchHistory(job.id);
+                      }}
+                    />
+                  </div>
+                </Link>
+              ))}
+            </div>
           )}
         </div>
       )}
