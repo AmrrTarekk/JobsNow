@@ -24,33 +24,22 @@ function SearchJobs() {
   const [searchHistory, setSearchHistory] = useState<searchHistory[]>(
     JSON.parse(localStorage?.getItem("searchHistory") || "[]")
   );
-
-  const handleSearchHistory = (job: { id: string; title: string }) => {
-    if (searchHistory.length) {
-      localStorage?.setItem(
-        "searchHistory",
-        JSON.stringify([
-          job,
-          ...JSON.parse(localStorage?.getItem("searchHistory") || "[]").filter(
-            (item: searchHistory) => item.id !== job.id
-          ),
-        ])
-      );
-      setSearchHistory([
-        job,
-        ...JSON.parse(localStorage?.getItem("searchHistory") || "[]").filter(
-          (item: searchHistory) => item.id !== job.id
-        ),
-      ]);
-    } else {
-      localStorage?.setItem("searchHistory", JSON.stringify([job]));
-      setSearchHistory([job]);
-    }
-  };
-
   const searchedJobsEntities = useAppSelector((state) =>
     selectAllSearchedJobs(state)
   );
+
+  const handleSearchHistory = (job: { id: string; title: string }) => {
+    const updatedSearchHistory = [
+      job,
+      ...searchHistory.filter((item: searchHistory) => item.id !== job.id),
+    ];
+    setSearchHistory(updatedSearchHistory);
+    localStorage?.setItem(
+      "searchHistory",
+      JSON.stringify(updatedSearchHistory)
+    );
+  };
+
   useEffect(() => {
     dispatch(fetchSearchedJobs(query as string));
   }, [dispatch, query]);
@@ -82,6 +71,7 @@ function SearchJobs() {
             ) : (
               <h2>Type a keyword to search for jobs</h2>
             )}
+
             <div className={styles.searchPageLayout_searchHistory}>
               <h3>Search History:</h3>
 

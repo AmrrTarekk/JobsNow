@@ -52,14 +52,6 @@ export default function HelmetContainer({
         <meta property="twitter:image:alt" content={seo?.image_alt} />
         <meta property="keywords" content={keywords || ""} />
         <link rel={link.rel} href={link.href} />
-        {/* {seo?.site_name && (
-      <meta property="og:site_name" content={seo.site_name} />
-    )} */}
-        <meta property="twitter:domain" content={`${window.location.origin}`} />
-        <meta
-          name="google-site-verification"
-          content="cYRqHMP8toPUW0DIEOhyaZwyKN3HBtb9cnEMTp3Z-_A"
-        />
         <meta property="og:image:width" content="240" />
         <meta property="og:image:height" content="240" />
       </Helmet>

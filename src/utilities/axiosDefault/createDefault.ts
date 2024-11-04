@@ -16,11 +16,9 @@ const axiosDefault = axios.create({
 
 axiosDefault.interceptors.response.use(
   function (response) {
-    // 2xx
     return response;
   },
   function (error) {
-    // 4xx
     const getError = new ErrorResponse().getError(error);
     return Promise.reject(getError);
   }

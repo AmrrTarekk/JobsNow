@@ -21,6 +21,16 @@ function Home() {
 
   const [cursor, setCursor] = useState(data.meta.next | 0);
 
+  const handleInView = (inView: boolean, index: number) => {
+    if (
+      inView &&
+      index === jobsEntities.length - 1 &&
+      cursor < data.meta.count
+    ) {
+      setCursor(data.meta.next);
+    }
+  };
+
   useEffect(() => {
     dispatch(fetchJobs(0));
   }, [dispatch]);
@@ -42,13 +52,7 @@ function Home() {
               <Fragment key={job.id}>
                 <InView
                   as="div"
-                  onChange={(inView) => {
-                    return inView &&
-                      i === jobsEntities.length - 1 &&
-                      cursor < data.meta.count
-                      ? setCursor(data.meta.next)
-                      : null;
-                  }}
+                  onChange={(inView) => handleInView(inView, i)}
                   threshold={0}
                   skip={!data.meta.count}
                 >
@@ -58,17 +62,15 @@ function Home() {
             ))}
 
             {paginationLoading &&
-              Array.from({ length: 4 })
-                .fill("")
-                .map((_, index) => (
-                  <div key={index}>
-                    <Skeleton
-                      variant="rectangular"
-                      width={"100%"}
-                      height={"150px"}
-                    />
-                  </div>
-                ))}
+              Array.from({ length: 4 }).map((_, index) => (
+                <div key={index}>
+                  <Skeleton
+                    variant="rectangular"
+                    width={"100%"}
+                    height={"150px"}
+                  />
+                </div>
+              ))}
           </div>
         </div>
       </PlaceholderPages>
