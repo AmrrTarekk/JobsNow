@@ -12,9 +12,10 @@ type Props = {
       name: string;
     }[];
   };
+  handleSearchHistory?: (job: { id: string; title: string }) => void;
 };
 
-function JobCard({ job }: Props) {
+function JobCard({ job, handleSearchHistory }: Props) {
   return (
     <div className={styles.jobCard}>
       <h3>{job.title}</h3>
@@ -27,7 +28,12 @@ function JobCard({ job }: Props) {
           ))}
         </div>
       </div>
-      <Link to={`/jobs/job/${job.id}`}>
+      <Link
+        to={`/jobs/job/${job.id}`}
+        onClick={() =>
+          handleSearchHistory?.({ id: `${job.id}`, title: job.title })
+        }
+      >
         <p className={styles.jobCard_footer}>View Job details</p>
       </Link>
     </div>

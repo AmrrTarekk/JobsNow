@@ -3,6 +3,7 @@ import languageSlice from "./slices/languageSlice";
 import { jobsReducer } from "./slices/jobsSlice/jobsSlice";
 import { jobDetailsReducer } from "./slices/jobDetailsSlice/jobDetailsSlice";
 import { skillDetailsReducer } from "./slices/skillDetailsSlice/skillDetailsSlice";
+import { searchedJobsReducer } from "./slices/searchJobsSlice/searchJobsSlice";
 // ...
 
 export const store = configureStore({
@@ -11,6 +12,7 @@ export const store = configureStore({
     jobs: jobsReducer,
     viewJob: jobDetailsReducer,
     viewSkill: skillDetailsReducer,
+    searchJobs: searchedJobsReducer,
   },
 });
 
