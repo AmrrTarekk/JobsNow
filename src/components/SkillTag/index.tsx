@@ -6,7 +6,7 @@ type Props = {
 function SkillTag({ name }: Props) {
   return (
     <div className={styles.skillTag}>
-      <span>{name}</span>
+      <span data-testid="skillTag">{name}</span>
     </div>
   );
 }

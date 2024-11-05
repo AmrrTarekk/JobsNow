@@ -18,7 +18,7 @@ type Props = {
 function JobCard({ job, handleSearchHistory }: Props) {
   return (
     <div className={styles.jobCard}>
-      <h3>{job.title}</h3>
+      <h3 data-testid="jobTitle">{job.title}</h3>
 
       <div className={styles.jobCard_relatedSkills}>
         <h5>Related Skills:</h5>
@@ -29,6 +29,7 @@ function JobCard({ job, handleSearchHistory }: Props) {
         </div>
       </div>
       <Link
+        data-testid="jobLink"
         to={`/jobs/job/${job.id}`}
         onClick={() =>
           handleSearchHistory?.({ id: `${job.id}`, title: job.title })
