@@ -12,6 +12,9 @@
     font-weight: 700;
     font-size: 24px;
     line-height: 32.63px;
+    @media screen and (max-width: 768px) {
+      font-size: 18px;
+    }
   }
   &_relatedSkills {
     display: flex;
@@ -21,6 +24,9 @@
       font-weight: 400;
       font-size: 18px;
       line-height: 24.47px;
+      @media screen and (max-width: 768px) {
+        font-size: 16px;
+      }
     }
     &_skills {
       display: flex;
@@ -33,5 +39,8 @@
     font-size: 18px;
     line-height: 24.47px;
     text-decoration: underline;
+    @media screen and (max-width: 768px) {
+      font-size: 16px;
+    }
   }
 }

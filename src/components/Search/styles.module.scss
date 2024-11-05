@@ -11,6 +11,9 @@
     justify-content: center;
     width: 40.5%;
     padding: 10px;
+    @media screen and (max-width: 768px) {
+      width: 60%;
+    }
     &.searchBoxActive {
       background: #fff;
       box-shadow: 0px 4px 25.9px 0px #00000017;
@@ -26,6 +29,9 @@
     border: 1px solid #000000;
     border-radius: 5px;
     padding: 20px 16px;
+    @media screen and (max-width: 768px) {
+      padding: 15px 16px;
+    }
     input {
       width: 100%;
       outline: none;
@@ -33,6 +39,9 @@
       font-size: 26px;
       font-weight: 400;
       line-height: 29.56px;
+      @media screen and (max-width: 768px) {
+        font-size: 22px;
+      }
       &::placeholder {
         color: #00000080;
       }
@@ -40,6 +49,10 @@
     .searchIcon {
       width: 28px;
       height: 28px;
+      @media screen and (max-width: 768px) {
+        width: 28px;
+        height: 28px;
+      }
       path {
         fill: #808080;
       }
