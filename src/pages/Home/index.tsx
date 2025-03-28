@@ -11,6 +11,7 @@ import JobCard from "../../components/JobCard";
 import PlaceholderPages from "../../components/PlaceholderPages";
 import { InView } from "react-intersection-observer";
 import { Skeleton } from "@mui/material";
+import { Link } from "react-router-dom";
 
 function Home() {
   const dispatch = useAppDispatch();
@@ -46,7 +47,7 @@ function Home() {
       <PlaceholderPages loading={loading} error={error}>
         <div className={styles.home}>
           <h1>All Jobs ({data.meta.count})</h1>
-
+          <Link to={"/second-app"}>test</Link>
           <div className={styles.home_jobs}>
             {jobsEntities.map((job, i) => (
               <Fragment key={job.id}>
